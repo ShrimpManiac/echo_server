@@ -1,7 +1,7 @@
 import net from 'net';
 import dotenv from 'dotenv';
 import { readHeader, writeHeader } from './utils.js';
-import { TOTAL_LENGTH_SIZE, HANDLER_ID_SIZE } from './constants.js';
+import { TOTAL_LENGTH_SIZE, HANDLER_ID_SIZE, MAX_MESSAGE_LENGTH } from './constants.js';
 
 dotenv.config();
 
@@ -12,10 +12,16 @@ const server = net.createServer((socket) => {
 
   socket.on('data', (data) => {
     const buffer = Buffer.from(data);
-
     const { length, handlerId } = readHeader(buffer);
     console.log(`handlerId : ${handlerId}`);
     console.log(`length: ${length}`);
+
+    if (length > MAX_MESSAGE_LENGTH) {
+      console.error(`Error: message exceeded maximum length ${length} / ${MAX_MESSAGE_LENGTH}`);
+      socket.write(`Error: message too long`);
+      socket.end();
+      return;
+    }
 
     const headerSize = TOTAL_LENGTH_SIZE + HANDLER_ID_SIZE; // 6
     const message = buffer.subarray(headerSize);
