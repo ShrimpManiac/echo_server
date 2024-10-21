@@ -2,6 +2,7 @@ import net from 'net';
 import dotenv from 'dotenv';
 import { readHeader, writeHeader } from './utils.js';
 import { TOTAL_LENGTH_SIZE, HANDLER_ID_SIZE, MAX_MESSAGE_LENGTH } from './constants.js';
+import handlers from './handlers/index.js';
 
 dotenv.config();
 
@@ -19,6 +20,13 @@ const server = net.createServer((socket) => {
     if (length > MAX_MESSAGE_LENGTH) {
       console.error(`Error: message exceeded maximum length ${length} / ${MAX_MESSAGE_LENGTH}`);
       socket.write(`Error: message too long`);
+      socket.end();
+      return;
+    }
+
+    if (!handlers[handlerId]) {
+      console.error(`Error: no handler found for ${handlerId}`);
+      socket.write(`Error: no handler found for ${handlerId}`);
       socket.end();
       return;
     }
