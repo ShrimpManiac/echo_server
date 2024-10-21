@@ -14,7 +14,7 @@ client.connect(PORT, HOST, () => {
   console.log('Connected to the server...');
 
   const message = 'Hello';
-  const longMessage = 'V'.repeat(1024); // 메세지 길이 테스트
+  // const longMessage = 'V'.repeat(1024); // 메세지 길이 테스트
   const buffer = Buffer.from(message);
 
   const header = writeHeader(buffer.length, 10);
