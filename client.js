@@ -1,5 +1,7 @@
 import net from 'net';
 import dotenv from 'dotenv';
+import { readHeader, writeHeader } from './utils.js';
+import { TOTAL_LENGTH_SIZE, HANDLER_ID_SIZE } from './constants.js';
 
 dotenv.config();
 
@@ -13,11 +15,24 @@ client.connect(PORT, HOST, () => {
 
   const message = 'Hello';
   const buffer = Buffer.from(message);
-  client.write(buffer);
+
+  const header = writeHeader(buffer.length, 10);
+  const packet = Buffer.concat([header, buffer]);
+
+  client.write(packet);
 });
 
 client.on('data', (data) => {
-  console.log(data);
+  const buffer = Buffer.from(data);
+
+  const { length, handlerId } = readHeader(data);
+  console.log(`handlerId : ${handlerId}`);
+  console.log(`length: ${length}`);
+
+  const headerSize = TOTAL_LENGTH_SIZE + HANDLER_ID_SIZE; // 6
+  const message = buffer.subarray(headerSize);
+
+  console.log(`Message received from server: ${message}`);
 });
 
 client.on('close', () => {
