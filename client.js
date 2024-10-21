@@ -10,6 +10,10 @@ const client = new net.Socket();
 
 client.connect(PORT, HOST, () => {
   console.log('Connected to the server...');
+
+  const message = 'Hello';
+  const buffer = Buffer.from(message);
+  client.write(buffer);
 });
 
 client.on('data', (data) => {

@@ -10,6 +10,7 @@ const server = net.createServer((socket) => {
 
   socket.on('data', (data) => {
     console.log(data);
+    socket.write(data);
   });
 
   socket.on('end', () => {
