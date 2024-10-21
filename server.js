@@ -38,7 +38,7 @@ const server = net.createServer((socket) => {
 
     console.log(`Message received from client: ${message}`);
 
-    const responseMessage = 'Hi there!';
+    const responseMessage = handler(message);
     const responseBuffer = Buffer.from(responseMessage);
 
     const header = writeHeader(responseBuffer.length, handlerId);
