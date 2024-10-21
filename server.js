@@ -24,7 +24,9 @@ const server = net.createServer((socket) => {
       return;
     }
 
-    if (!handlers[handlerId]) {
+    const handler = handlers[handlerId];
+
+    if (!handler) {
       console.error(`Error: no handler found for ${handlerId}`);
       socket.write(`Error: no handler found for ${handlerId}`);
       socket.end();
