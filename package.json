@@ -1,7 +1,12 @@
 {
-  "name": "echo_server",
+  "name": "multi_player_server",
   "version": "1.0.0",
   "main": "app.js",
+  "repository": {
+    "url": "https://github.com/ShrimpManiac/multi_player_server",
+    "type": "git"
+  },
+  "author": "ShrimpManiac",
   "license": "MIT",
   "type": "module"
 }
