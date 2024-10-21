@@ -12,14 +12,14 @@ client.connect(PORT, HOST, () => {
   console.log('Connected to the server...');
 });
 
-socket.on('data', (data) => {
+client.on('data', (data) => {
   console.log(data);
 });
 
-socket.on('close', () => {
+client.on('close', () => {
   console.log(`Connection closed`);
 });
 
-socket.on('error', (err) => {
+client.on('error', (err) => {
   console.log(`Client error, ${err}`);
 });
