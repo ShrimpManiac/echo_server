@@ -1,7 +1,10 @@
 import net from 'net';
+import dotenv from 'dotenv';
 
-const HOST = 'localhost';
-const PORT = 5555;
+dotenv.config();
+
+const HOST = process.env.HOST;
+const PORT = process.env.PORT;
 
 const client = new net.Socket();
 
