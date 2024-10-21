@@ -19,7 +19,7 @@ const server = net.createServer((socket) => {
 
     if (length > MAX_MESSAGE_LENGTH) {
       console.error(`Error: message exceeded maximum length ${length} / ${MAX_MESSAGE_LENGTH}`);
-      socket.write(`Error: message too long`);
+      socket.write(`Error: message exceeded maximum length ${length} / ${MAX_MESSAGE_LENGTH}`);
       socket.end();
       return;
     }
