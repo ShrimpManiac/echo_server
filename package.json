@@ -1,5 +1,5 @@
 {
-  "name": "multi_player_server",
+  "name": "echo_server",
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
@@ -7,7 +7,7 @@
     "client": "node client.js"
   },
   "repository": {
-    "url": "https://github.com/ShrimpManiac/multi_player_server",
+    "url": "https://github.com/ShrimpManiac/echo_server",
     "type": "git"
   },
   "author": "ShrimpManiac",
